@@ -20,6 +20,9 @@ function main(): void {
   if (text.split(/[.!?]/).filter((p) => p.trim().length > 0).length !== 1) {
     throw new Error("entry must be exactly one sentence");
   }
+  if (text.includes("\n") || text.includes("  ")) {
+    throw new Error("entry must be a single line with no doubled spaces");
+  }
   mkdirSync("/output", { recursive: true });
   writeFileSync(OUT, text, "utf8");
   // Self-check: read the file back and verify it matches exactly.
